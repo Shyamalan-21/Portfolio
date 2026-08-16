@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* ─── Font Variables ──────────────────────────────────────── */
+@theme {
+  --font-bebas: var(--font-bebas), "Bebas Neue", sans-serif;
+  --font-outfit: var(--font-outfit), "Outfit", sans-serif;
+  --font-space: var(--font-space), "Space Grotesk", sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --font-inter: var(--font-inter), "Inter", sans-serif;
+  --font-playfair: var(--font-playfair), "Playfair Display", serif;
+
+  /* ─── Color Tokens ─────────────────────────── */
+  --c-bg:          #03060F;
+  --c-bg2:         #060D1E;
+  --c-surface:     #0A1628;
+  --c-navy:        #0B1E3D;
+  --c-panel:       #0F2347;
+  --c-cream:       #F2EFE6;
+  --c-cream2:      #E8E3D8;
+  --c-blue:        #2B6FFF;
+  --c-blue-glow:   #3B82F6;
+  --c-blue-light:  #60A5FA;
+  --c-green:       #00C49A;
+  --c-green-dim:   #3D8361;
+  --c-gold:        #FFCB5B;
+  --c-red:         #FF4D6A;
+  --c-white:       #F5F5F0;
+  --c-muted:       #7C8BA3;
+  --c-line:        rgba(255,255,255,0.07);
+}
+
+/* ─── Base Reset ──────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-white);
+    font-family: var(--font-outfit), sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  a, button, [role="button"], input, select, textarea { cursor: none !important; }
+
+  ::selection { background: var(--c-blue); color: #fff; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--c-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--c-blue); border-radius: 3px; }
+}
+
+/* ─── Typography helpers ──────────────────────────────────── */
+@layer utilities {
+  .font-bebas  { font-family: var(--font-bebas), sans-serif; letter-spacing: 0.05em; }
+  .font-outfit { font-family: var(--font-outfit), sans-serif; }
+  .font-space  { font-family: var(--font-space), sans-serif; }
+  .font-mono   { font-family: var(--font-mono), monospace; }
+  .font-playfair { font-family: var(--font-playfair), serif; }
+
+  /* ─── Gradients ─────────────── */
+  .grad-hero    { background: linear-gradient(135deg, #03060F 0%, #0B1E3D 50%, #03060F 100%); }
+  .grad-blue    { background: linear-gradient(135deg, #2B6FFF 0%, #00C49A 100%); }
+  .grad-text    { background: linear-gradient(135deg, #60A5FA, #00C49A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .grad-gold    { background: linear-gradient(135deg, #FFCB5B, #FF8C42); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .grad-cream   { background: linear-gradient(180deg, #F2EFE6 0%, #E0D9CC 100%); }
+
+  /* ─── Glow Effects ───────────── */
+  .glow-blue    { box-shadow: 0 0 40px rgba(43,111,255,0.35), 0 0 80px rgba(43,111,255,0.15); }
+  .glow-green   { box-shadow: 0 0 40px rgba(0,196,154,0.35), 0 0 80px rgba(0,196,154,0.10); }
+  .text-glow-blue { text-shadow: 0 0 30px rgba(43,111,255,0.6); }
+  .text-glow-white { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+
+  /* ─── Section Rounded Card ───── */
+  .section-card {
+    border-radius: 40px 40px 0 0;
+    margin-top: -40px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ─── Horizontal scroll ──────── */
+  .h-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 24px;
+    padding-bottom: 24px;
+    scrollbar-width: none;
+  }
+  .h-scroll::-webkit-scrollbar { display: none; }
+  .h-scroll-item {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* ─── Marquee ────────────────── */
+  .marquee-track {
+    display: flex;
+    gap: 16px;
+    will-change: transform;
+  }
+  .marquee-left  { animation: marqueeLeft 25s linear infinite; }
+  .marquee-right { animation: marqueeRight 25s linear infinite; }
+
+  @keyframes marqueeLeft  { from { transform: translateX(0); }  to { transform: translateX(-50%); } }
+  @keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  /* ─── Parallax ───────────────── */
+  .parallax-layer { will-change: transform; }
+
+  /* ─── Glass card ─────────────── */
+  .glass {
+    background: rgba(15, 35, 71, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .glass-cream {
+    background: rgba(242,239,230,0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* ─── Noise texture ──────────── */
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+}
