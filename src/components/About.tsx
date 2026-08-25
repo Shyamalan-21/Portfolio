@@ -124,7 +124,7 @@ export default function About() {
             const Icon = c.icon;
             return (
               <motion.div
-                key={c.num}
+                key={c.heading}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -137,11 +137,6 @@ export default function About() {
                   className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 group-hover:h-2"
                   style={{ background: c.accent }}
                 />
-
-                {/* Number watermark */}
-                <span className="absolute -top-4 -right-2 font-bebas text-[90px] leading-none text-black/[0.04] group-hover:text-black/[0.08] select-none transition-colors">
-                  {c.num}
-                </span>
 
                 <div className="flex items-center justify-between mb-6">
                   <div
