@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Code2,
   Layers,
@@ -10,7 +9,6 @@ import {
   Glasses,
   Cpu,
   CheckCircle2,
-  ChevronRight,
 } from "lucide-react";
 
 const row1 = [
@@ -134,7 +132,7 @@ function MarqueeRow({ items, dir }: { items: typeof row1; dir: "left" | "right" 
   const doubled = [...items, ...items];
   return (
     <div
-      className="relative overflow-hidden py-3"
+      className="relative overflow-hidden py-2"
       style={{
         maskImage:
           "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
@@ -150,7 +148,7 @@ function MarqueeRow({ items, dir }: { items: typeof row1; dir: "left" | "right" 
         {doubled.map((skill, i) => (
           <span
             key={i}
-            className="flex-shrink-0 px-5 py-2.5 rounded-full font-mono text-xs tracking-wide border transition-transform hover:scale-110"
+            className="flex-shrink-0 px-4 py-2 rounded-full font-mono text-xs tracking-wide border transition-transform hover:scale-110"
             style={{
               color: skill.color,
               borderColor: `${skill.color}40`,
@@ -167,7 +165,7 @@ function MarqueeRow({ items, dir }: { items: typeof row1; dir: "left" | "right" 
 }
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section id="skills" className="relative w-full bg-[#050A14] py-32 overflow-hidden border-t border-white/5">
@@ -175,105 +173,162 @@ export default function Skills() {
       {/* Glow Ambience */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[180px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-14 relative z-10">
-        <span className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[#00C49A] font-semibold">
-          CAPABILITIES & TECHNICAL TOOLKIT
-        </span>
-        <h2 className="font-bebas text-6xl md:text-8xl tracking-wider text-white mt-2 leading-none">
-          Skills & <span className="grad-text">Stack</span>
-        </h2>
+      {/* Section Header */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
+          <div>
+            <span className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[#00C49A] font-semibold">
+              CAPABILITIES & TECHNICAL TOOLKIT
+            </span>
+            <h2 className="font-bebas text-6xl md:text-8xl tracking-wider text-white mt-2 leading-none">
+              Skills & <span className="grad-text">Stack</span>
+            </h2>
+          </div>
+
+          <div className="font-mono text-xs uppercase tracking-widest text-[#7C8BA3] flex items-center gap-2">
+            <span>HOVER MODULES TO EXPAND</span>
+            <span className="w-2 h-2 rounded-full bg-[#00C49A] animate-pulse" />
+          </div>
+        </div>
       </div>
 
-      {/* ── Opposite Sliding Horizontal Marquees ──────────── */}
-      <div className="mb-14 space-y-2">
+      {/* Opposite Sliding Horizontal Marquees */}
+      <div className="mb-10 space-y-2">
         <MarqueeRow items={row1} dir="left" />
         <MarqueeRow items={row2} dir="right" />
       </div>
 
-      {/* ── Horizontal Scrollable Expandable Category Panels ── */}
+      {/* Expandable Accordion Card Deck */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-
-
         <div
-          className="flex gap-6 overflow-x-auto pb-8 scrollbar-none items-stretch"
-          style={{ scrollSnapType: "x mandatory" }}
+          onMouseLeave={() => setHoveredId(null)}
+          className="flex gap-3 md:gap-4 overflow-x-auto pb-6 scrollbar-none items-stretch"
         >
-          {skillCategories.map((category, idx) => {
-            const isActive = activeCategory === idx;
+          {skillCategories.map((category) => {
             const Icon = category.icon;
+            const isHovered = hoveredId === category.id;
 
             return (
               <div
                 key={category.id}
-                onMouseEnter={() => setActiveCategory(idx)}
+                onMouseEnter={() => setHoveredId(category.id)}
+                onClick={() => setHoveredId(isHovered ? null : category.id)}
                 style={{
-                  scrollSnapAlign: "start",
-                  borderColor: isActive ? category.accent : "rgba(255,255,255,0.08)",
-                  boxShadow: isActive ? `0 0 35px ${category.accent}25` : "none",
+                  height: "460px",
+                  borderColor: isHovered ? `${category.accent}80` : `${category.accent}25`,
+                  boxShadow: isHovered ? `0 20px 50px -10px ${category.accent}35` : "none",
                 }}
-                className={`relative rounded-3xl bg-[#091528]/85 backdrop-blur-md border p-8 flex flex-col justify-between flex-shrink-0 cursor-pointer transition-[width,border-color,box-shadow,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[width] ${
-                  isActive
-                    ? "w-[88vw] sm:w-[440px] lg:w-[480px]"
-                    : "w-[260px] sm:w-[280px] opacity-75 hover:opacity-100"
+                className={`rounded-3xl bg-[#091528]/95 backdrop-blur-xl border relative overflow-hidden transition-[width,border-color,box-shadow,transform] duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] flex-shrink-0 cursor-pointer ${
+                  isHovered
+                    ? "w-[88vw] sm:w-[480px] lg:w-[540px] p-7 md:p-8"
+                    : "w-[75px] sm:w-[85px] lg:w-[95px] p-3 hover:border-white/30"
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className="p-3.5 rounded-2xl border"
-                      style={{
-                        background: `${category.accent}15`,
-                        borderColor: `${category.accent}40`,
-                      }}
-                    >
-                      <Icon className="w-6 h-6" style={{ color: category.accent }} />
-                    </div>
-                  </div>
-
-                  <h3 className="font-bebas text-3xl md:text-4xl tracking-wide text-white leading-none mb-3">
-                    {category.title}
-                  </h3>
-
-                  <p className="font-outfit text-sm text-[#94A3B8] leading-relaxed mb-6">
-                    {category.desc}
-                  </p>
-                </div>
-
-                {/* Expanded Skill Bars when Active */}
+                {/* Top Accent Line */}
                 <div
-                  className={`space-y-3.5 pt-4 border-t border-white/10 overflow-hidden mb-4 transition-all duration-400 ease-out ${
-                    isActive ? "opacity-100 max-h-[300px]" : "opacity-0 max-h-0 pointer-events-none"
+                  className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300"
+                  style={{ background: category.accent }}
+                />
+
+                {/* ─── MINIMIZED VERTICAL TITLE LAYER ─── */}
+                <div
+                  className={`absolute inset-0 p-4 flex flex-col items-center justify-between transition-opacity duration-300 ease-in-out select-none ${
+                    isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
                   }`}
                 >
-                  {category.skills.map((skill) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between items-center font-mono text-xs text-white mb-1">
-                        <span className="flex items-center gap-1.5">
-                          <CheckCircle2
-                            className="w-3.5 h-3.5"
-                            style={{ color: category.accent }}
-                          />
-                          {skill.name}
-                        </span>
-                        <span style={{ color: category.accent }}>{skill.level}</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full"
-                          style={{
-                            width: skill.level,
-                            background: category.accent,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                  <span
+                    className="font-mono text-xs font-bold tracking-wider"
+                    style={{ color: category.accent }}
+                  >
+                    {category.id}
+                  </span>
+
+                  <div
+                    className="font-bebas text-xl lg:text-2xl tracking-widest text-white/85 uppercase whitespace-nowrap rotate-180"
+                    style={{ writingMode: "vertical-rl" }}
+                  >
+                    {category.title}
+                  </div>
+
+                  <div
+                    className="p-2 rounded-xl border"
+                    style={{
+                      background: `${category.accent}15`,
+                      borderColor: `${category.accent}40`,
+                    }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: category.accent }} />
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/5 flex items-center justify-end font-mono text-[10px] text-[#7C8BA3]">
-                  <span style={{ color: category.accent }}>
-                    {isActive ? "ACTIVE" : "HOVER TO EXPAND"}
-                  </span>
+                {/* ─── MAXIMIZED EXPANDED CONTENT LAYER (w-full to eliminate dead space) ─── */}
+                <div
+                  className={`w-full h-full flex flex-col justify-between transition-all duration-500 ease-out ${
+                    isHovered
+                      ? "opacity-100 translate-x-0 delay-100"
+                      : "opacity-0 translate-x-3 pointer-events-none"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div
+                        className="p-3 rounded-2xl border"
+                        style={{
+                          background: `${category.accent}15`,
+                          borderColor: `${category.accent}40`,
+                        }}
+                      >
+                        <Icon className="w-6 h-6" style={{ color: category.accent }} />
+                      </div>
+                      <span className="font-mono text-xs font-bold" style={{ color: category.accent }}>
+                        MODULE {category.id}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bebas text-3xl md:text-4xl tracking-wide text-white leading-none mb-2">
+                      {category.title}
+                    </h3>
+
+                    <p className="font-outfit text-sm text-[#94A3B8] leading-relaxed mb-4">
+                      {category.desc}
+                    </p>
+                  </div>
+
+                  {/* Skill Bars */}
+                  <div className="space-y-3 pt-3 border-t border-white/10">
+                    {category.skills.map((skill) => (
+                      <div key={skill.name}>
+                        <div className="flex justify-between items-center font-mono text-xs text-white mb-1">
+                          <span className="flex items-center gap-1.5">
+                            <CheckCircle2
+                              className="w-3.5 h-3.5"
+                              style={{ color: category.accent }}
+                            />
+                            {skill.name}
+                          </span>
+                          <span style={{ color: category.accent }} className="font-semibold">
+                            {skill.level}
+                          </span>
+                        </div>
+                        <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{
+                              width: skill.level,
+                              background: category.accent,
+                              boxShadow: `0 0 10px ${category.accent}80`,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-end font-mono text-[10px] text-[#7C8BA3]">
+                    <span style={{ color: category.accent }} className="font-semibold">
+                      VERIFIED COMPETENCY &bull; 2026
+                    </span>
+                  </div>
                 </div>
               </div>
             );

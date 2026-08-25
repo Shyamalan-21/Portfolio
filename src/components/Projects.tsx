@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Layers, Sparkles, Database, ShieldCheck, Cpu } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Sparkles, Cpu, CheckCircle2 } from "lucide-react";
 
 interface Project {
   id: string;
@@ -109,25 +108,13 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
-  const [activeProject, setActiveProject] = useState<number>(0);
-  const railRef = useRef<HTMLDivElement>(null);
-
-  const scrollLeft = () => {
-    railRef.current?.scrollBy({ left: -420, behavior: "smooth" });
-  };
-
-  const scrollRight = () => {
-    railRef.current?.scrollBy({ left: 420, behavior: "smooth" });
-  };
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section id="projects" className="relative w-full bg-[#03060F] py-32 overflow-hidden">
+    <section id="projects" className="relative w-full bg-[#03060F] py-32 overflow-hidden border-t border-white/5">
       
-      {/* Dynamic Background Glow reacting to active project */}
-      <div
-        className="absolute top-1/2 right-10 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[180px] pointer-events-none transition-all duration-700 opacity-20"
-        style={{ background: projects[activeProject]?.accent || "#2B6FFF" }}
-      />
+      {/* Background Ambience */}
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-blue-600/10 blur-[180px] pointer-events-none" />
 
       {/* Header Bar */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
@@ -142,160 +129,173 @@ export default function Projects() {
             </h2>
           </div>
 
-          {/* Navigation Arrows */}
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#7C8BA3] mr-2">
-              SCROLL TO EXPLORE
-            </span>
-            <button
-              onClick={scrollLeft}
-              className="p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all hover:scale-105"
-              aria-label="Scroll left"
-              data-hover="true"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all hover:scale-105"
-              aria-label="Scroll right"
-              data-hover="true"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+          <div className="font-mono text-xs uppercase tracking-widest text-[#7C8BA3] flex items-center gap-2">
+            <span>HOVER CARDS TO EXPAND</span>
+            <span className="w-2 h-2 rounded-full bg-[#00C49A] animate-pulse" />
           </div>
         </div>
       </div>
 
-      {/* Right-Aligned Horizontal Scroll Rail with Pulling String / Accordion Expand Effect */}
-      <div
-        ref={railRef}
-        className="flex gap-6 overflow-x-auto px-6 md:px-12 pb-12 pt-2 scrollbar-none items-stretch"
-        style={{ scrollSnapType: "x mandatory" }}
-      >
-        {projects.map((project, idx) => {
-          const isActive = activeProject === idx;
+      {/* Smooth Expandable Accordion Card Deck */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div
+          onMouseLeave={() => setHoveredId(null)}
+          className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-2 scrollbar-none items-stretch"
+        >
+          {projects.map((project) => {
+            const isHovered = hoveredId === project.id;
 
-          return (
-            <div
-              key={project.id}
-              onMouseEnter={() => setActiveProject(idx)}
-              style={{
-                scrollSnapAlign: "start",
-                background: project.bg,
-                borderColor: isActive ? project.accent : "rgba(255,255,255,0.08)",
-                boxShadow: isActive ? `0 0 45px ${project.glow}` : "none",
-                height: "600px",
-              }}
-              className={`relative rounded-[32px] border cursor-pointer overflow-hidden flex flex-col justify-between flex-shrink-0 transition-[width,border-color,box-shadow,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[width] ${
-                isActive
-                  ? "w-[90vw] sm:w-[580px] lg:w-[680px] p-8 md:p-10"
-                  : "w-[280px] sm:w-[320px] p-6 md:p-8 opacity-75 hover:opacity-100"
-              }`}
-            >
-              {/* Colored Top Accent Bar */}
+            return (
               <div
-                className="absolute top-0 left-0 right-0 h-1.5 transition-opacity duration-500"
+                key={project.id}
+                onMouseEnter={() => setHoveredId(project.id)}
+                onClick={() => setHoveredId(isHovered ? null : project.id)}
                 style={{
-                  background: `linear-gradient(90deg, ${project.accent}, ${project.secondaryAccent})`,
-                  opacity: isActive ? 1 : 0.3,
+                  background: project.bg,
+                  borderColor: isHovered ? `${project.accent}80` : "rgba(255,255,255,0.12)",
+                  boxShadow: isHovered ? `0 20px 50px -10px ${project.glow}` : "none",
                 }}
-              />
-
-              {/* Card Header */}
-              <div>
-                <div className="flex items-center justify-between gap-4 mb-6">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest border"
-                      style={{
-                        color: project.accent,
-                        borderColor: `${project.accent}50`,
-                        background: `${project.accent}15`,
-                      }}
-                    >
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <span className="font-mono text-xs text-[#7C8BA3] uppercase tracking-widest">
-                    {project.year}
-                  </span>
-                </div>
-
-                <h3 className="font-bebas text-4xl md:text-5xl tracking-wide text-white leading-none mb-2">
-                  {project.title}
-                </h3>
-                <p className="font-mono text-xs uppercase tracking-wider mb-6" style={{ color: project.secondaryAccent }}>
-                  {project.subtitle}
-                </p>
-                <p className="font-outfit text-[#94A3B8] text-base leading-relaxed mb-6 line-clamp-3">
-                  {project.description}
-                </p>
-              </div>
-
-              {/* Expandable Architecture & Highlights Drawer */}
-              <div
-                className={`overflow-hidden space-y-5 pt-4 border-t border-white/10 transition-all duration-400 ease-out ${
-                  isActive ? "opacity-100 max-h-[300px]" : "opacity-0 max-h-0 pointer-events-none"
+                className={`h-[540px] rounded-[32px] border relative overflow-hidden transition-[width,border-color,box-shadow,transform] duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] flex-shrink-0 cursor-pointer ${
+                  isHovered
+                    ? "w-[90vw] sm:w-[560px] lg:w-[620px] p-7 md:p-8"
+                    : "w-[85px] sm:w-[95px] lg:w-[110px] p-4 hover:border-white/25"
                 }`}
               >
-                {/* Architecture Pill */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5">
-                  <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-[#7C8BA3] mb-1">
-                    <Cpu className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Core Architecture</span>
-                  </div>
-                  <p className="font-mono text-xs text-white font-medium">
-                    {project.architecture}
-                  </p>
-                </div>
+                {/* Top Colored Accent Bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-1.5 transition-all duration-300"
+                  style={{
+                    background: `linear-gradient(90deg, ${project.accent}, ${project.secondaryAccent})`,
+                  }}
+                />
 
-                {/* Key Technical Highlights */}
-                <div className="space-y-2">
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-[#7C8BA3]">
-                    Key Highlights:
-                  </p>
-                  {project.highlights.map((highlight, hIdx) => (
-                    <div key={hIdx} className="flex items-start gap-2.5 text-xs text-[#CBD5E1] font-outfit">
-                      <span
-                        className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: project.accent }}
-                      />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Card Footer: Tech Stack & CTA */}
-              <div className="pt-6 mt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1 rounded-full font-mono text-[10px] bg-white/5 border border-white/10 text-white/80"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 font-outfit font-semibold text-sm transition-all hover:scale-105"
-                  style={{ color: project.accent }}
-                  data-hover="true"
+                {/* ─── MINIMIZED VERTICAL TITLE LAYER (Fades smoothly out on hover) ─── */}
+                <div
+                  className={`absolute inset-0 p-5 flex flex-col items-center justify-between transition-opacity duration-300 ease-in-out select-none ${
+                    isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
+                  }`}
                 >
-                  <span>Explore Repository</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
+                  <span
+                    className="font-mono text-sm font-bold tracking-wider"
+                    style={{ color: project.accent }}
+                  >
+                    {project.id}
+                  </span>
+
+                  <div
+                    className="font-bebas text-2xl lg:text-3xl tracking-widest text-white/85 uppercase whitespace-nowrap rotate-180"
+                    style={{ writingMode: "vertical-rl" }}
+                  >
+                    {project.title}
+                  </div>
+
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center border"
+                    style={{
+                      borderColor: `${project.accent}50`,
+                      background: `${project.accent}15`,
+                    }}
+                  >
+                    <ArrowUpRight className="w-4 h-4" style={{ color: project.accent }} />
+                  </div>
+                </div>
+
+                {/* ─── MAXIMIZED EXPANDED CONTENT LAYER (w-full to eliminate dead space) ─── */}
+                <div
+                  className={`w-full h-full flex flex-col justify-between transition-all duration-500 ease-out ${
+                    isHovered
+                      ? "opacity-100 translate-x-0 delay-100"
+                      : "opacity-0 translate-x-3 pointer-events-none"
+                  }`}
+                >
+                  {/* Header */}
+                  <div>
+                    <div className="flex items-center justify-between gap-4 mb-5">
+                      <span
+                        className="px-3.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest border font-semibold"
+                        style={{
+                          color: project.accent,
+                          borderColor: `${project.accent}50`,
+                          background: `${project.accent}15`,
+                        }}
+                      >
+                        {project.category}
+                      </span>
+
+                      <span className="font-mono text-xs text-[#7C8BA3] uppercase tracking-widest font-semibold">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bebas text-4xl md:text-5xl tracking-wide text-white leading-none mb-1">
+                      {project.title}
+                    </h3>
+                    <p
+                      className="font-mono text-xs uppercase tracking-wider mb-3 font-semibold"
+                      style={{ color: project.secondaryAccent }}
+                    >
+                      {project.subtitle}
+                    </p>
+                    <p className="font-outfit text-[#94A3B8] text-sm md:text-base leading-relaxed mb-3 line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Architecture & Highlights */}
+                  <div className="space-y-3 pt-3 border-t border-white/10">
+                    <div className="bg-white/5 border border-white/10 rounded-2xl p-3">
+                      <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#7C8BA3] mb-1">
+                        <Cpu className="w-3.5 h-3.5 text-blue-400" />
+                        <span>Core Architecture</span>
+                      </div>
+                      <p className="font-mono text-xs text-white font-medium">
+                        {project.architecture}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      {project.highlights.slice(0, 2).map((highlight, hIdx) => (
+                        <div key={hIdx} className="flex items-start gap-2 text-xs text-[#CBD5E1] font-outfit">
+                          <CheckCircle2
+                            className="w-3.5 h-3.5 mt-0.5 flex-shrink-0"
+                            style={{ color: project.accent }}
+                          />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Footer: Tech Stack & CTA */}
+                  <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.slice(0, 4).map((t) => (
+                        <span
+                          key={t}
+                          className="px-2.5 py-0.5 rounded-full font-mono text-[10px] bg-white/5 border border-white/10 text-white/80"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 font-outfit font-semibold text-xs md:text-sm transition-all hover:scale-105"
+                      style={{ color: project.accent }}
+                      data-hover="true"
+                    >
+                      <span>Repository</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

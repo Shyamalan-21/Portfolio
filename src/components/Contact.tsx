@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Copy, Check, ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Copy, Check, ArrowUpRight, Mail, Sparkles, Send } from "lucide-react";
 
 function GithubIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
@@ -22,133 +22,181 @@ function LinkedinIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const [done, setDone] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const email = "samzshyam21@gmail.com";
 
-  const copyEmail = () => { navigator.clipboard.writeText(email); setCopied(true); setTimeout(() => setCopied(false), 2500); };
+  const contactRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: contactRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Smooth optimized rightward parallax sweep
+  const bgTextX = useTransform(scrollYProgress, [0, 1], [0, 1000]);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   return (
     <footer
       id="contact"
-      className="relative w-full pt-32 pb-16 overflow-hidden"
+      ref={contactRef}
+      className="relative w-full pt-20 md:pt-32 pb-16 overflow-hidden border-t border-white/5"
       style={{ background: "linear-gradient(180deg, #03060F 0%, #060D1E 50%, #071428 100%)" }}
     >
-      {/* Giant faded text */}
-      <div className="absolute top-10 left-0 right-0 flex justify-center pointer-events-none select-none overflow-hidden">
-        <span className="font-bebas text-[20vw] leading-none text-white/[0.025] whitespace-nowrap">LETS BUILD</span>
-      </div>
+      {/* Centered on Entry + Smooth Rightward Parallax */}
+      <motion.div
+        style={{ x: bgTextX }}
+        className="absolute inset-x-0 top-12 flex items-center justify-center pointer-events-none select-none z-0 text-center will-change-transform"
+      >
+        <span className="font-bebas text-[16vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] xl:text-[10vw] leading-none text-white opacity-[0.07] tracking-[0.05em] sm:tracking-[0.08em] uppercase block whitespace-nowrap">
+          LET&apos;S BUILD SOMETHING REAL
+        </span>
+      </motion.div>
 
-      {/* Glow blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/15 blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#00C49A]/10 blur-[120px] pointer-events-none" />
+      {/* Atmospheric Glow Orbs (GPU Friendly Blur) */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-600/15 blur-[80px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-[#00C49A]/15 blur-[80px] md:blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
-        <div className="mb-16">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-blue-400 mb-3">INITIATE CONTACT</p>
-          <h2 className="font-bebas text-7xl md:text-[110px] tracking-wider text-white leading-none">
-            Let&apos;s Build<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-400 to-blue-500">
-              Something.
-            </span>
+        <div className="mb-14 md:mb-20 text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.3em] text-[#60A5FA] mb-3 font-semibold">
+            <Sparkles className="w-4 h-4 text-[#00C49A]" />
+            <span>INITIATE COLLABORATION</span>
+          </div>
+          <h2 className="font-bebas text-5xl sm:text-7xl md:text-[90px] lg:text-[110px] tracking-wider text-white leading-[0.95]">
+            Let&apos;s Build <span className="grad-text">Something Real.</span>
           </h2>
+          <p className="font-outfit text-[#94A3B8] text-base md:text-lg lg:text-xl leading-relaxed mt-4 sm:mt-6">
+            Have an ambitious vision, a multi-agent AI challenge, an AR/VR initiative, or want to discuss engineering? My inbox is always open.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-          {/* Left: Info */}
-          <div className="lg:col-span-5 space-y-6">
-            <p className="font-outfit text-[#7C8BA3] text-lg leading-relaxed max-w-md">
-              Have an ambitious idea, an AI challenge, an AR/VR initiative, or just want to connect? I&apos;m open to exciting opportunities.
-            </p>
-
-            {/* Email */}
-            <div className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 transition-colors">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-[#7C8BA3] mb-3 flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5" /> Direct Email
+        {/* Direct Connect Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 max-w-5xl mx-auto">
+          
+          {/* Direct Email Card with Interactive Copy */}
+          <div className="p-8 rounded-3xl bg-[#091528]/85 border border-white/10 hover:border-blue-500/50 transition-all duration-300 shadow-xl group flex flex-col justify-between">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#7C8BA3] mb-4 flex items-center gap-2 font-semibold">
+                <Mail className="w-4 h-4 text-blue-400" /> Direct Communication
               </p>
-              <div className="flex items-center justify-between gap-3">
-                <a href={`mailto:${email}`} className="font-mono text-sm text-white hover:text-blue-400 transition-colors truncate">{email}</a>
-                <button onClick={copyEmail} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 font-mono text-[10px] text-white/60 hover:text-white transition-all flex-shrink-0" data-hover="true">
-                  {copied ? <><Check className="w-3.5 h-3.5 text-emerald-400" /><span className="text-emerald-400">Copied</span></> : <><Copy className="w-3.5 h-3.5" /><span>Copy</span></>}
-                </button>
+              <a
+                href={`mailto:${email}`}
+                className="font-mono text-base text-white group-hover:text-blue-400 transition-colors block font-bold mb-4"
+              >
+                {email}
+              </a>
+            </div>
+            
+            <div className="flex items-center gap-3 mt-8 pt-5 border-t border-white/10">
+              <button
+                onClick={copyEmail}
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 font-mono text-xs text-white transition-all border border-white/10 hover:scale-105"
+                data-hover="true"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-400 font-bold">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-[#7C8BA3]" />
+                    <span>Copy Address</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href={`mailto:${email}`}
+                className="p-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all hover:scale-105"
+                title="Send Email"
+                data-hover="true"
+              >
+                <Send className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* GitHub Profile Card */}
+          <a
+            href="https://github.com/Shyamalan-21"
+            target="_blank"
+            rel="noreferrer"
+            className="p-8 rounded-3xl bg-[#091528]/85 border border-white/10 hover:border-white/30 hover:bg-[#0c1b33] transition-all flex flex-col justify-between group shadow-xl hover:scale-105"
+            data-hover="true"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:scale-110 transition-transform">
+                  <GithubIcon className="w-6 h-6" />
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
+              <h3 className="font-bebas text-3xl text-white tracking-wide leading-none">
+                GitHub
+              </h3>
+              <p className="font-mono text-xs text-[#7C8BA3] mt-3 leading-relaxed">
+                @Shyamalan-21 &bull; Open-source projects & codebases
+              </p>
             </div>
 
-            {/* Social */}
-            <div className="grid grid-cols-2 gap-4">
-              <a href="https://github.com/Shyamalan-21" target="_blank" rel="noreferrer" className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/30 hover:bg-white/[0.06] transition-all flex items-center justify-between group" data-hover="true">
-                <div className="flex items-center gap-3"><GithubIcon className="w-5 h-5 text-white/80 group-hover:text-white" /><span className="font-mono text-xs uppercase tracking-wider text-white">GitHub</span></div>
-                <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-              <a href="https://www.linkedin.com/in/shyamalanv/" target="_blank" rel="noreferrer" className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all flex items-center justify-between group" data-hover="true">
-                <div className="flex items-center gap-3"><LinkedinIcon className="w-5 h-5 text-blue-400 group-hover:text-blue-300" /><span className="font-mono text-xs uppercase tracking-wider text-white">LinkedIn</span></div>
-                <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-blue-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+            <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between font-mono text-xs text-white/80">
+              <span>View Profile</span>
+              <span className="text-[#00C49A] group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </div>
+          </a>
+
+          {/* LinkedIn Profile Card */}
+          <a
+            href="https://www.linkedin.com/in/shyamalanv/"
+            target="_blank"
+            rel="noreferrer"
+            className="p-8 rounded-3xl bg-[#091528]/85 border border-white/10 hover:border-blue-500/40 hover:bg-[#0c1b33] transition-all flex flex-col justify-between group shadow-xl hover:scale-105"
+            data-hover="true"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 rounded-2xl bg-blue-600/15 border border-blue-500/30 text-blue-400 group-hover:scale-110 transition-transform">
+                  <LinkedinIcon className="w-6 h-6" />
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-blue-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </div>
+              <h3 className="font-bebas text-3xl text-white tracking-wide leading-none">
+                LinkedIn
+              </h3>
+              <p className="font-mono text-xs text-[#7C8BA3] mt-3 leading-relaxed">
+                in/shyamalanv &bull; Professional updates & posts
+              </p>
             </div>
 
-            {/* Status info */}
-            <div className="font-mono text-xs text-[#7C8BA3] space-y-1.5 pt-2">
-              <p className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Chennai, India · UTC +5:30</p>
-              <p className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Open to new opportunities</p>
+            <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between font-mono text-xs text-blue-300">
+              <span>Connect on LinkedIn</span>
+              <span className="text-blue-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
             </div>
-          </div>
+          </a>
 
-          {/* Right: Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-[#0B132B]/60 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl" style={{ boxShadow: "0 0 80px rgba(43,111,255,0.08)" }}>
-              {done ? (
-                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="py-16 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center mx-auto mb-6">
-                    <Check className="w-8 h-8 text-emerald-400" />
-                  </div>
-                  <h3 className="font-bebas text-4xl tracking-wider text-white">Message Received</h3>
-                  <p className="font-outfit text-[#7C8BA3] max-w-sm mx-auto">I&apos;ll get back to you shortly.</p>
-                  <button onClick={() => { setDone(false); setForm({ name: "", email: "", message: "" }); }} className="mt-4 px-6 py-2.5 rounded-full border border-white/20 font-mono text-xs uppercase text-white hover:bg-white/10 transition-colors" data-hover="true">
-                    Send Another
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={(e) => { e.preventDefault(); if (form.email && form.message) setDone(true); }} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {[{ k: "name", l: "Your Name", p: "Ada Lovelace", t: "text" }, { k: "email", l: "Your Email", p: "ada@domain.com", t: "email" }].map(f => (
-                      <div key={f.k} className="space-y-2">
-                        <label className="block font-mono text-[10px] uppercase tracking-widest text-[#7C8BA3]">{f.l}</label>
-                        <input type={f.t} required={f.k === "email"} placeholder={f.p} value={(form as Record<string, string>)[f.k]} onChange={e => setForm({ ...form, [f.k]: e.target.value })}
-                          className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 transition-colors font-mono text-sm"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block font-mono text-[10px] uppercase tracking-widest text-[#7C8BA3]">Message</label>
-                    <textarea required rows={5} placeholder="Tell me about your project..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
-                      className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-blue-500 transition-colors font-mono text-sm resize-none"
-                    />
-                  </div>
-                  <button type="submit" data-hover="true"
-                    className="w-full py-5 rounded-2xl font-outfit font-semibold text-sm tracking-widest uppercase text-white flex items-center justify-center gap-3 transition-all hover:-translate-y-0.5"
-                    style={{ background: "linear-gradient(135deg, #2B6FFF, #00C49A)", boxShadow: "0 0 40px rgba(43,111,255,0.3)" }}
-                  >
-                    <Send className="w-4 h-4" /> Transmit Message
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
         </div>
 
-        {/* Footer bar */}
+        {/* Footer Bar */}
         <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs text-[#7C8BA3]">
           <div className="flex items-center gap-3">
             <span className="font-bebas text-2xl text-white tracking-wider">SV<span className="text-[#2B6FFF]">.</span></span>
-            <span>© {new Date().getFullYear()} Shyamalan V. All Rights Reserved.</span>
+            <span>&copy; {new Date().getFullYear()} Shyamalan V. Engineered for high performance.</span>
           </div>
-          <div className="flex gap-6">
-            {["about","projects","experience","skills","dsa","contact"].map(h => (
-              <a key={h} href={`#${h}`} className="uppercase tracking-widest hover:text-white transition-colors">{h}</a>
+          <div className="flex gap-6 flex-wrap justify-center">
+            {["about", "projects", "experience", "skills", "dsa", "achievements", "contact"].map((h) => (
+              <a key={h} href={`#${h}`} className="uppercase tracking-widest hover:text-white transition-colors">
+                {h}
+              </a>
             ))}
-            <a href="#hero" className="uppercase tracking-widest hover:text-white transition-colors">↑ TOP</a>
+            <a href="#hero" className="uppercase tracking-widest text-[#00C49A] hover:text-white transition-colors font-bold">
+              &uarr; TOP
+            </a>
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
 
 import CustomCursor from "@/components/CustomCursor";
 import MouseTrail   from "@/components/MouseTrail";
@@ -18,24 +17,21 @@ import BeyondCode   from "@/components/BeyondCode";
 import Contact      from "@/components/Contact";
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(false);
+  const [loadingActive, setLoadingActive] = useState(true);
 
   return (
     <>
-      {/* Loading screen — shows until "loaded" = true */}
-      <LoadingScreen onComplete={() => setLoaded(true)} />
+      {/* Initial 3D Boot Screen Overlay */}
+      {loadingActive && (
+        <LoadingScreen onComplete={() => setLoadingActive(false)} />
+      )}
 
-      {/* Main site — hidden behind loading until complete */}
-      <main
-        className="relative min-h-screen w-full bg-[#03060F]"
-        style={{ visibility: loaded ? "visible" : "hidden", transition: "visibility 0s" }}
-      >
-        {/* Persistent overlays */}
+      {/* Main site */}
+      <main className="relative min-h-screen w-full bg-[#03060F]">
         <CustomCursor />
         <MouseTrail />
         <NavBar />
 
-        {/* Sections */}
         <Hero />
         <About />
         <Projects />
