@@ -129,20 +129,20 @@ export default function Hero() {
       {/* Main Content Grid */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-10 h-full lg:max-h-[88vh]"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col-reverse lg:flex-row items-center lg:items-end justify-between gap-8 lg:gap-10 h-full lg:max-h-[84vh]"
       >
         {/* ─── LEFT COLUMN: Photo Cutout & Badge ─── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full lg:w-[48%] flex flex-col items-center justify-end h-full relative shrink-0 lg:-translate-x-4 translate-y-2"
+          className="w-full lg:w-[46%] flex flex-col items-center justify-end h-full relative shrink-0 lg:-translate-x-2"
         >
           {/* Silhouette Glow */}
           <div className="absolute w-[380px] sm:w-[480px] h-[480px] sm:h-[580px] rounded-full bg-gradient-to-t from-blue-600/35 via-[#00C49A]/25 to-transparent blur-[80px] md:blur-[100px] pointer-events-none -z-10" />
 
           {/* Photo Cutout */}
-          <div className="relative w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[580px] h-[38vh] sm:h-[46vh] md:h-[54vh] lg:h-[70vh] max-h-[620px] flex items-end justify-center">
+          <div className="relative w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[560px] h-[38vh] sm:h-[46vh] md:h-[54vh] lg:h-[68vh] max-h-[600px] flex items-end justify-center">
             <Image
               src="/profile.jpg"
               alt="Shyamalan V — Computer Science Engineer"
@@ -157,7 +157,7 @@ export default function Hero() {
           </div>
 
           {/* Floating Nameboard Badge Overlay */}
-          <div className="mt-[-20px] sm:mt-[-26px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
+          <div className="mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
             <div className="bg-[#03060F]/95 backdrop-blur-md border border-white/20 rounded-2xl py-3 px-5 sm:px-7 shadow-2xl shadow-black/90">
               <h2 className="font-bebas text-2xl sm:text-3xl md:text-[34px] tracking-widest text-white leading-none text-glow-white">
                 SHYAMALAN V
@@ -169,16 +169,16 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* ─── RIGHT COLUMN: Headlines, Role Tags & CTAs ─── */}
-        <div className="w-full lg:w-[54%] flex flex-col justify-start items-center lg:items-end text-center lg:text-right shrink-0 h-full pt-4 sm:pt-6 lg:pt-10 pb-2">
+        {/* ─── RIGHT COLUMN: Vertically Balanced & Aligned with Left Photo & Nameboard ─── */}
+        <div className="w-full lg:w-[54%] flex flex-col justify-center lg:justify-between items-center lg:items-end text-center lg:text-right shrink-0 h-full lg:h-[72vh] lg:max-h-[660px] pt-1 pb-1">
 
-          {/* Main Name Headline (Single Line — Top Right) */}
+          {/* Main Name Headline (Single Line — Aligned with Top of Photo) */}
           <div className="overflow-hidden w-full flex justify-center lg:justify-end">
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-bebas text-[48px] sm:text-[68px] md:text-[86px] lg:text-[104px] xl:text-[120px] leading-none tracking-wider text-white whitespace-nowrap"
+              className="font-bebas text-[48px] sm:text-[68px] md:text-[86px] lg:text-[102px] xl:text-[116px] leading-none tracking-wider text-white whitespace-nowrap"
             >
               SHYAMALAN{" "}
               <span
@@ -199,7 +199,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.4 }}
-            className="mt-6 sm:mt-8 lg:mt-10 flex flex-wrap gap-2 sm:gap-2.5 max-w-xl xl:max-w-2xl justify-center lg:justify-end"
+            className="my-4 lg:my-2 flex flex-wrap gap-2 sm:gap-2.5 max-w-xl xl:max-w-2xl justify-center lg:justify-end"
           >
             {allRoleTags.map((tag, idx) => (
               <motion.span
@@ -225,7 +225,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
-            className="mt-5 sm:mt-6 text-sm sm:text-base lg:text-[18px] font-outfit font-light text-[#94A3B8] max-w-xl leading-relaxed text-center lg:text-right"
+            className="my-3 lg:my-2 text-sm sm:text-base lg:text-[17px] xl:text-[18px] font-outfit font-light text-[#94A3B8] max-w-xl leading-relaxed text-center lg:text-right"
           >
             I build <span className="text-white font-medium">high-performance software</span>,{" "}
             <span className="text-[#60A5FA] font-medium">agentic AI pipelines</span>,{" "}
@@ -233,12 +233,12 @@ export default function Hero() {
             and interactive digital platforms that turn ambitious ideas into reality.
           </motion.p>
 
-          {/* Action CTAs */}
+          {/* Action CTAs (Aligned with Bottom of Nameboard) */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.4 }}
-            className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4 justify-center lg:justify-end"
+            className="mt-4 lg:mt-0 flex flex-wrap items-center gap-3 sm:gap-4 justify-center lg:justify-end"
           >
             <a
               href="#projects"
