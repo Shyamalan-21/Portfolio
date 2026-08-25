@@ -139,17 +139,17 @@ export default function Hero() {
           className="w-full lg:w-[46%] flex flex-col items-center justify-end h-full relative shrink-0 lg:-translate-x-2"
         >
           {/* Silhouette Glow */}
-          <div className="absolute w-[380px] sm:w-[480px] h-[480px] sm:h-[580px] rounded-full bg-gradient-to-t from-blue-600/35 via-[#00C49A]/25 to-transparent blur-[80px] md:blur-[100px] pointer-events-none -z-10" />
+          <div className="absolute w-[420px] sm:w-[520px] h-[520px] sm:h-[620px] rounded-full bg-gradient-to-t from-blue-600/35 via-[#00C49A]/25 to-transparent blur-[80px] md:blur-[100px] pointer-events-none -z-10" />
 
-          {/* Photo Cutout */}
-          <div className="relative w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[560px] h-[38vh] sm:h-[46vh] md:h-[54vh] lg:h-[68vh] max-h-[600px] flex items-end justify-center">
+          {/* Photo Cutout (Enlarged) */}
+          <div className="relative w-full max-w-[360px] sm:max-w-[460px] md:max-w-[530px] lg:max-w-[600px] h-[40vh] sm:h-[48vh] md:h-[56vh] lg:h-[72vh] max-h-[640px] flex items-end justify-center">
             <Image
               src="/profile.jpg"
               alt="Shyamalan V — Computer Science Engineer"
               width={750}
               height={1000}
               priority
-              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.9)] scale-[1.15] sm:scale-[1.2] origin-bottom transition-transform duration-300"
+              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.95)] scale-[1.2] sm:scale-[1.25] lg:scale-[1.28] origin-bottom transition-transform duration-300"
               style={{
                 filter: "contrast(1.06) brightness(1.02)",
               }}
