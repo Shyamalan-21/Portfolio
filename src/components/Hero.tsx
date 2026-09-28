@@ -149,7 +149,7 @@ export default function Hero() {
               width={750}
               height={1000}
               priority
-              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.05] sm:scale-[1.12] lg:scale-[1.23] origin-bottom transition-transform duration-300"
+              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.2] sm:scale-[1.12] lg:scale-[1.23] origin-bottom transition-transform duration-300"
               style={{
                 filter: "contrast(1.06) brightness(1.02)",
               }}
