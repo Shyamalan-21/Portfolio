@@ -129,7 +129,7 @@ export default function Hero() {
       {/* Main Content Grid */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 lg:gap-10 h-full lg:max-h-[84vh]"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-4 sm:gap-8 lg:gap-10 h-full lg:max-h-[84vh]"
       >
         {/* ─── LEFT COLUMN: Photo Cutout & Badge ─── */}
         <motion.div
@@ -142,14 +142,14 @@ export default function Hero() {
           <div className="absolute w-[390px] sm:w-[490px] h-[490px] sm:h-[590px] rounded-full bg-gradient-to-t from-blue-600/35 via-[#00C49A]/25 to-transparent blur-[80px] md:blur-[100px] pointer-events-none -z-10" />
 
           {/* Photo Cutout (Refined & Balanced) */}
-          <div className="relative w-full max-w-[380px] sm:max-w-[440px] md:max-w-[510px] lg:max-w-[570px] h-[52vh] sm:h-[55vh] md:h-[54vh] lg:h-[69vh] max-h-[610px] flex items-end justify-center">
+          <div className="relative w-full max-w-[380px] sm:max-w-[440px] md:max-w-[510px] lg:max-w-[570px] h-[40vh] sm:h-[45vh] md:h-[54vh] lg:h-[69vh] max-h-[610px] flex items-end justify-center">
             <Image
               src="/profile.jpg"
               alt="Shyamalan V — Computer Science Engineer"
               width={750}
               height={1000}
               priority
-              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.12] sm:scale-[1.15] lg:scale-[1.23] origin-bottom transition-transform duration-300"
+              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.05] sm:scale-[1.12] lg:scale-[1.23] origin-bottom transition-transform duration-300"
               style={{
                 filter: "contrast(1.06) brightness(1.02)",
               }}
@@ -199,7 +199,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.4 }}
-            className="my-4 lg:my-2 flex flex-wrap gap-2 sm:gap-2.5 max-w-xl xl:max-w-2xl justify-center lg:justify-end"
+            className="my-2 flex flex-wrap gap-2 sm:gap-2.5 max-w-xl xl:max-w-2xl justify-center lg:justify-end"
           >
             {allRoleTags.map((tag, idx) => (
               <motion.span
@@ -225,7 +225,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.4 }}
-            className="my-3 lg:my-2 text-sm sm:text-base lg:text-[17px] xl:text-[18px] font-outfit font-light text-[#94A3B8] max-w-xl leading-relaxed text-center lg:text-right"
+            className="my-2 lg:my-2 text-sm sm:text-base lg:text-[17px] xl:text-[18px] font-outfit font-light text-[#94A3B8] max-w-xl leading-relaxed text-center lg:text-right"
           >
             I build <span className="text-white font-medium">high-performance software</span>,{" "}
             <span className="text-[#60A5FA] font-medium">agentic AI pipelines</span>,{" "}
@@ -238,7 +238,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.4 }}
-            className="mt-4 lg:mt-0 flex flex-wrap items-center gap-3 sm:gap-4 justify-center lg:justify-end"
+            className="mt-2 lg:mt-0 flex flex-wrap items-center gap-3 sm:gap-4 justify-center lg:justify-end"
           >
             <a
               href="#projects"
