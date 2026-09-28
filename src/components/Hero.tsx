@@ -157,7 +157,7 @@ export default function Hero() {
           </div>
 
           {/* Floating Nameboard Badge Overlay */}
-          <div className="hidden md:block mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
+          <div className="mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
             <div className="bg-[#03060F]/95 backdrop-blur-md border border-white/20 rounded-2xl py-3 px-5 sm:px-7 shadow-2xl shadow-black/90">
               <h2 className="font-bebas text-2xl sm:text-3xl md:text-[34px] tracking-widest text-white leading-none text-glow-white">
                 SHYAMALAN V
@@ -173,7 +173,7 @@ export default function Hero() {
         <div className="w-full lg:w-[54%] flex flex-col justify-center lg:justify-between items-center lg:items-end text-center lg:text-right shrink-0 h-full lg:h-[72vh] lg:max-h-[660px] pt-1 pb-1">
 
           {/* Main Name Headline (Single Line — Aligned with Top of Photo) */}
-          <div className="overflow-hidden w-full flex justify-center lg:justify-end">
+          <div className="hidden lg:flex overflow-hidden w-full justify-center lg:justify-end">
             <motion.h1
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
