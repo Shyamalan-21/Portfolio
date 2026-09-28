@@ -45,6 +45,8 @@ const experienceTree: TimelineNode[] = [
     accent: "#00C49A",
     secondary: "#34D399",
     glow: "rgba(0,196,154,0.4)",
+    link: "https://www.linkedin.com/posts/shyamalanv_andropedia-cloudcomputing-cloudconxpulse-activity-7322651380601540609-_gZ1?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGBdOEQBpxVh5ZnbWKFaUxjk0DwfNZ5IhmQ",
+    linkText: "View LinkedIn Post",
     skills: ["Video Production", "Sound Design", "Visual Storytelling", "Brand Direction"],
     responsibilities: [
       "Served as Chief Video Editor for 7 months, leading all media production and cinematic event documentation.",
@@ -103,6 +105,8 @@ const experienceTree: TimelineNode[] = [
     accent: "#2B6FFF",
     secondary: "#60A5FA",
     glow: "rgba(43,111,255,0.4)",
+    link: "https://www.linkedin.com/posts/shyamalanv_today-marked-a-pivotal-moment-in-our-active-activity-7345395663150424064-9Zh4?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGBdOEQBpxVh5ZnbWKFaUxjk0DwfNZ5IhmQ",
+    linkText: "View Internship Post",
     skills: ["Unity", "Unreal Engine", "Blender", "Oculus SDK", "C#"],
     responsibilities: [
       "Built collaborative AR/VR projects using Unity, Unreal Engine, and Blender across the full development lifecycle.",

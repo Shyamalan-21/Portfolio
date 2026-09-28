@@ -17,7 +17,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Shyamalan V — Software Developer & Creative Technologist",
+  title: "Shyamalan V — Portfolio",
   description: "Portfolio of Shyamalan V — builder of high-performance software, AI agent pipelines, AR/VR spatial experiences, and interactive web platforms.",
   keywords: [
     "Shyamalan V",
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://shyamalanv.dev",
-    title: "Shyamalan V — Software Developer & Creative Technologist",
+    title: "Shyamalan V — Portfolio",
     description: "Builder of high-performance software, agentic AI pipelines, AR/VR worlds, and interactive web experiences.",
     siteName: "Shyamalan V Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shyamalan V — Software Developer & Creative Technologist",
+    title: "Shyamalan V — Portfolio",
     description: "Builder of high-performance software, agentic AI pipelines, AR/VR worlds, and interactive web experiences.",
   },
   robots: {

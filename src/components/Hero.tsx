@@ -129,7 +129,7 @@ export default function Hero() {
       {/* Main Content Grid */}
       <motion.div
         style={{ y: heroContentY, opacity: heroOpacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col-reverse lg:flex-row items-center lg:items-end justify-between gap-8 lg:gap-10 h-full lg:max-h-[84vh]"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 lg:gap-10 h-full lg:max-h-[84vh]"
       >
         {/* ─── LEFT COLUMN: Photo Cutout & Badge ─── */}
         <motion.div

@@ -119,11 +119,7 @@ export default function BeyondCodeAndEducation() {
                     {q.desc}
                   </p>
 
-                  <div className="mt-6 pt-4 border-t border-black/5 font-mono text-[11px] flex justify-end">
-                    <span className="font-semibold flex items-center gap-1.5" style={{ color: q.accent }}>
-                      EXPLORE DOMAIN &rarr;
-                    </span>
-                  </div>
+
                 </motion.div>
               );
             })}
@@ -197,14 +193,7 @@ export default function BeyondCodeAndEducation() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start md:items-end gap-2 shrink-0 font-mono text-xs text-[#7C8BA3]">
-              <span className="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-white font-medium">
-                Rank: Top 5% of Department
-              </span>
-              <span className="text-emerald-400 text-[11px]">
-                Active Full-Time Student
-              </span>
-            </div>
+
           </motion.div>
 
           {/* Interactive Micro-comparison Cards */}
