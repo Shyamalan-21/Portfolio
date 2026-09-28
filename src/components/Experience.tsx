@@ -284,7 +284,7 @@ export default function Experience() {
                         {item.role}
                       </h3>
                       <p
-                        className="font-mono text-sm font-semibold mb-6 flex items-center gap-2"
+                        className="font-mono text-sm font-semibold mb-6 flex flex-wrap items-center gap-2 break-words"
                         style={{
                           color: item.secondary,
                           justifyContent: isEven ? "flex-end" : "flex-start",

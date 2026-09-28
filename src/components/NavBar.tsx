@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { FileText, X, Menu } from "lucide-react";
 import { motion } from "framer-motion";
@@ -24,6 +24,17 @@ export default function NavBar() {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 30);
   });
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
 
   return (
     <>
@@ -91,9 +102,9 @@ export default function NavBar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] bg-[#03060F]/98 backdrop-blur-3xl flex flex-col p-8"
+          className="fixed inset-0 z-[100] bg-[#03060F]/98 backdrop-blur-3xl flex flex-col p-8 overflow-y-auto overscroll-contain"
         >
-          <div className="flex items-center justify-between h-20 border-b border-white/10">
+          <div className="flex items-center justify-between h-20 border-b border-white/10 sticky top-0 bg-[#03060F]/98 z-10 -mx-8 px-8 -mt-8 pt-8">
             <span className="font-bebas text-4xl text-white tracking-widest">
               SV<span className="text-[#2B6FFF]">.</span>
             </span>
@@ -114,7 +125,7 @@ export default function NavBar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="font-bebas text-5xl text-white hover:text-[#60A5FA] tracking-wider transition-colors"
+                className="font-bebas text-4xl text-white hover:text-[#60A5FA] tracking-wider transition-colors"
               >
                 {l.name}
               </motion.a>

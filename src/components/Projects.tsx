@@ -18,6 +18,7 @@ interface Project {
   glow: string;
   bg: string;
   link: string;
+  linkText?: string;
 }
 
 const projects: Project[] = [
@@ -83,6 +84,72 @@ const projects: Project[] = [
     glow: "rgba(255,51,102,0.35)",
     bg: "linear-gradient(145deg, #2E0A12 0%, #150207 100%)",
     link: "https://github.com/Shyamalan-21/Fundwatch",
+  },
+  {
+    id: "04",
+    title: "Rival Racing",
+    category: "GAME DEVELOPMENT",
+    subtitle: "Story-Driven Arcade Racer",
+    year: "2024",
+    description:
+      "A polished, story-driven arcade racer built in Unity featuring AI-generated Adobe Firefly cutscenes, responsive WheelCollider physics, and an adaptive AI opponent system.",
+    highlights: [
+      "Responsive WheelCollider physics and adaptive AI opponents",
+      "AI-generated cinematic cutscenes using Adobe Firefly and Unity Timeline",
+      "Branching narrative with multiple endings based on race outcomes",
+    ],
+    architecture: "Unity • C# • Unity Timeline • Adobe Firefly AI",
+    tech: ["Unity", "C#", "Adobe Firefly", "Game Dev"],
+    accent: "#F97316",
+    secondaryAccent: "#FB923C",
+    glow: "rgba(249,115,22,0.35)",
+    bg: "linear-gradient(145deg, #241103 0%, #0F0701 100%)",
+    link: "https://lnkd.in/p/gjhEzPxA",
+    linkText: "View Post",
+  },
+  {
+    id: "05",
+    title: "DevDojo",
+    category: "GAME DEVELOPMENT & AI",
+    subtitle: "AI-Driven Developer Simulation Game",
+    year: "2026",
+    description:
+      "A simulation game where players step into the role of a junior software developer to navigate realistic workplace scenarios and learn through AI-driven interactions. Built from scratch during a 24-hour hackathon at TIDEL Park.",
+    highlights: [
+      "Integrated a locally hosted LLM via Ollama for dynamic, AI-driven narrative interactions",
+      "Developed a custom FastAPI communication layer bridging the Unity game engine and the AI model",
+      "Built rapidly in Unity and C# during an intense 24-hour hackathon",
+    ],
+    architecture: "Unity • C# • FastAPI • Ollama LLM",
+    tech: ["Unity", "C#", "Ollama", "FastAPI"],
+    accent: "#A855F7",
+    secondaryAccent: "#C084FC",
+    glow: "rgba(168,85,247,0.35)",
+    bg: "linear-gradient(145deg, #1A0B2E 0%, #0A0413 100%)",
+    link: "https://lnkd.in/p/gAQetfp6",
+    linkText: "View Post",
+  },
+  {
+    id: "06",
+    title: "Smart Ambulance",
+    category: "IOT & 3D VISUALIZATION",
+    subtitle: "Intelligent Traffic System for Emergency Vehicles",
+    year: "2026",
+    description:
+      "An IoT-based smart traffic management solution designed to dynamically clear pathways for emergency vehicles. Showcased alongside a custom-built 3D conceptual simulation video detailing the system's entire workflow.",
+    highlights: [
+      "IoT architecture designed for real-time traffic signal preemption and routing",
+      "Custom 3D conceptual simulation video developed to visually explain complex system mechanics",
+      "Featured as a comprehensive working model at the SaRaM Project Day exhibition",
+    ],
+    architecture: "IoT Hardware • 3D Visualization • Systems Integration",
+    tech: ["IoT", "3D Modeling", "Hardware Design", "Simulation"],
+    accent: "#14B8A6",
+    secondaryAccent: "#2DD4BF",
+    glow: "rgba(20,184,166,0.35)",
+    bg: "linear-gradient(145deg, #041F1C 0%, #010F0D 100%)",
+    link: "https://lnkd.in/p/gXdPmuwR",
+    linkText: "View Post",
   },
 ];
 
@@ -266,7 +333,7 @@ export default function Projects() {
                       style={{ color: project.accent }}
                       data-hover="true"
                     >
-                      <span>Repository</span>
+                      <span>{project.linkText || "Repository"}</span>
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>

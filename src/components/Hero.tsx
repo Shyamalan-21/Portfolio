@@ -119,7 +119,7 @@ export default function Hero() {
       {/* Background Typography */}
       <motion.div
         style={{ x: bgTextX }}
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none select-none z-0 text-center will-change-transform"
+        className="absolute inset-x-0 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center pointer-events-none select-none z-0 text-center will-change-transform"
       >
         <span className="font-bebas text-[15vw] sm:text-[13vw] md:text-[11.5vw] lg:text-[10.5vw] xl:text-[9.8vw] leading-none tracking-[0.05em] sm:tracking-[0.08em] text-white opacity-[0.08] uppercase block whitespace-nowrap">
           COMPUTER SCIENCE ENGINEER
@@ -157,7 +157,7 @@ export default function Hero() {
           </div>
 
           {/* Floating Nameboard Badge Overlay */}
-          <div className="mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
+          <div className="hidden md:block mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
             <div className="bg-[#03060F]/95 backdrop-blur-md border border-white/20 rounded-2xl py-3 px-5 sm:px-7 shadow-2xl shadow-black/90">
               <h2 className="font-bebas text-2xl sm:text-3xl md:text-[34px] tracking-widest text-white leading-none text-glow-white">
                 SHYAMALAN V
