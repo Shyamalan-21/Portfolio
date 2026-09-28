@@ -142,14 +142,14 @@ export default function Hero() {
           <div className="absolute w-[390px] sm:w-[490px] h-[490px] sm:h-[590px] rounded-full bg-gradient-to-t from-blue-600/35 via-[#00C49A]/25 to-transparent blur-[80px] md:blur-[100px] pointer-events-none -z-10" />
 
           {/* Photo Cutout (Refined & Balanced) */}
-          <div className="relative w-full max-w-[340px] sm:max-w-[440px] md:max-w-[510px] lg:max-w-[570px] h-[38vh] sm:h-[46vh] md:h-[54vh] lg:h-[69vh] max-h-[610px] flex items-end justify-center">
+          <div className="relative w-full max-w-[380px] sm:max-w-[440px] md:max-w-[510px] lg:max-w-[570px] h-[45vh] sm:h-[48vh] md:h-[54vh] lg:h-[69vh] max-h-[610px] flex items-end justify-center">
             <Image
               src="/profile.jpg"
               alt="Shyamalan V — Computer Science Engineer"
               width={750}
               height={1000}
               priority
-              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.18] sm:scale-[1.22] lg:scale-[1.23] origin-bottom transition-transform duration-300"
+              className="w-auto h-full max-h-full object-contain object-bottom drop-shadow-[0_25px_50px_rgba(0,0,0,0.92)] scale-[1.28] sm:scale-[1.22] lg:scale-[1.23] origin-bottom transition-transform duration-300"
               style={{
                 filter: "contrast(1.06) brightness(1.02)",
               }}
