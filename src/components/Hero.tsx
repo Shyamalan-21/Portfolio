@@ -157,14 +157,20 @@ export default function Hero() {
           </div>
 
           {/* Floating Nameboard Badge Overlay */}
-          <div className="mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-sm sm:max-w-md text-center px-2">
-            <div className="bg-[#03060F]/95 backdrop-blur-md border border-white/20 rounded-2xl py-3 px-5 sm:px-7 shadow-2xl shadow-black/90">
+          <div className="mt-[-20px] sm:mt-[-24px] z-20 w-full max-w-[320px] sm:max-w-md text-center px-2">
+            <div className="bg-[#03060F]/95 backdrop-blur-md border border-white/20 rounded-2xl py-3 px-4 sm:px-7 shadow-2xl shadow-black/90">
               <h2 className="font-bebas text-2xl sm:text-3xl md:text-[34px] tracking-widest text-white leading-none text-glow-white">
                 SHYAMALAN V
               </h2>
-              <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#00C49A] mt-1 font-bold whitespace-nowrap">
-                COMPUTER SCIENCE &bull; GAMING TECHNOLOGY
-              </p>
+              <div className="mt-1.5 flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2">
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] sm:tracking-[0.18em] text-[#00C49A] font-bold">
+                  COMPUTER SCIENCE ENGINEER
+                </span>
+                <span className="hidden sm:inline text-[#00C49A]/50 text-xs">&bull;</span>
+                <span className="font-mono text-[9px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.18em] text-[#38BDF8] font-semibold">
+                  GAMING TECHNOLOGY
+                </span>
+              </div>
             </div>
           </div>
         </motion.div>
